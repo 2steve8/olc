@@ -1,0 +1,27 @@
+generator client {
+    provider = "prisma-client"
+    output = "../src/generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+enum CourseLevel {
+    Beginner
+    Intermediate
+    Advanced
+}
+
+model Course {
+    id          Int         @id @default(autoincrement())
+    slug        String      @unique
+    title       String 
+    description String      @db.Text
+    price       Float       @default(0)
+    level       CourseLevel @default(Beginner)
+    published   Boolean     @default(false)
+
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+}
